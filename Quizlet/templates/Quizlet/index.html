@@ -1,0 +1,16 @@
+{% if latest_question_list %}
+    <ul>
+    {% for question in latest_question_list %}
+        <li><a href="{{question.get_absolute_url}}">  {{ question.question_text }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
+<form action={%url 'quizlet:index' %} method='post'>
+    {% csrf_token %}
+    <table>
+    {{forma.as_table}}
+    </table>
+    <input type="submit" value="Submit">
+</form>

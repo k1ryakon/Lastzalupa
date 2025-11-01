@@ -1,0 +1,19 @@
+<a>{{question}}</a>
+{% if context %}
+    <ul>
+    {% for con in context %}
+        <li>
+            <a>{{con}}</a>
+            <form action="{% url 'quizlet:detail' con.id %}" method='post'>
+                {% csrf_token %}
+                <table>
+                {{form.as_table}}
+                </table>
+                <input type="submit" value="Submit">
+            </form>
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>Вопросов нет</p>
+{% endif %}
