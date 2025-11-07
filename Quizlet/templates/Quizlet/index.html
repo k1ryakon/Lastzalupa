@@ -5,7 +5,7 @@
     {% endfor %}
     </ul>
 {% else %}
-    <p>No polls are available.</p>
+    <p>Нет тем квизов</p>
 {% endif %}
 <form action={%url 'quizlet:index' %} method='post'>
     {% csrf_token %}

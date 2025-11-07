@@ -3,7 +3,7 @@ from django.urls import reverse
 
 
 
-class Dummy(models.Model):
+class Quiz(models.Model):
     question_text = models.CharField(max_length=100, verbose_name='Тема квиза')
 
 
@@ -21,11 +21,15 @@ class Dummy(models.Model):
 
         
 
-class Answer(models.Model):
-    dummy = models.ForeignKey(Dummy, verbose_name="Вопросики", on_delete=models.CASCADE)
-    answer1 = models.CharField(max_length=100)
-
+class Question(models.Model):
+    class Status(models.TextChoices):
+        PROPERLY = 'PR', 'properly'
+        WRONG = 'WR', "wrong"
+        
+    quiz = models.ForeignKey(Quiz, verbose_name="Вопросики", on_delete=models.CASCADE)
+    question = models.CharField(max_length=100)
+    status = models.CharField(max_length=2, choices=Status.choices, default=Status.WRONG)
     
     def __str__(self):
-        return f"{self.answer1}"
+        return f"{self.question}"
     

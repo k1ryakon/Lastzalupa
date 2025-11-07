@@ -1,16 +1,16 @@
-<a>{{question}}</a>
-{% if context %}
+<a>{{qizi}}</a>
+<form action="{% url 'quizlet:detail' qizi.id %}" method='post'>
+    {% csrf_token %}
+    <table>
+    {{form.as_table}}
+    </table>
+    <input type="submit" value="Submit">
+</form>
+{% if questions %}
     <ul>
-    {% for con in context %}
+    {% for con in questions %}
         <li>
             <a>{{con}}</a>
-            <form action="{% url 'quizlet:detail' con.id %}" method='post'>
-                {% csrf_token %}
-                <table>
-                {{form.as_table}}
-                </table>
-                <input type="submit" value="Submit">
-            </form>
         </li>
     {% endfor %}
     </ul>

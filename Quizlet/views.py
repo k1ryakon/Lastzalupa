@@ -1,20 +1,20 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
-from .models import Dummy, Answer
+from .models import Quiz, Question
 from django.http import Http404
-from .forms import QuesForm, AnswerForm
+from .forms import QuizForm, QuestionForm
 from django.urls import reverse
 
 def index(request):
     if request.method == "POST":
-        forma = QuesForm(request.POST)
+        forma = QuizForm(request.POST)
         if forma.is_valid():
             forma.save()
             HttpResponseRedirect('/')
     else:
-        forma = QuesForm()
+        forma = QuizForm()
     
-    context = Dummy.objects.all()  
+    context = Quiz.objects.all()  
      
     return render(request, "Quizlet/index.html", {"latest_question_list": context,'forma': forma })
 
@@ -22,15 +22,15 @@ def index(request):
 
 
 def detail(request, id):
-    some = Answer.objects.filter(dummy=id)
-    question = Dummy.objects.get(id=id)
+    some = Question.objects.filter(quiz=id)
+    qizi = Quiz.objects.get(id=id)
     if request.method == "POST":
-        answerform = AnswerForm(request.POST)
+        answerform = QuestionForm(request.POST)
         if answerform.is_valid():
             answer = answerform.save(commit=False)
-            answer.dummy_id = id
+            answer.quiz = qizi
             answer.save()
             return HttpResponseRedirect(reverse('quizlet:detail', args=[id]))
     else:
-        answerform = AnswerForm()
-    return render(request, 'Quizlet/detail.html', {'form': answerform, "context":some, "question":question})
+        answerform = QuestionForm()
+    return render(request, 'Quizlet/detail.html', {'form': answerform, "questions":some, "qizi":qizi})

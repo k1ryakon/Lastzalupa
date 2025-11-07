@@ -1,12 +1,12 @@
 from django.forms import ModelForm
-from .models import Dummy, Answer
+from .models import Quiz, Question
 
-class QuesForm(ModelForm):
+class QuizForm(ModelForm):
     class Meta:
-        model = Dummy
+        model = Quiz
         fields = ['question_text']
         
-class AnswerForm(ModelForm):
+class QuestionForm(ModelForm):
     class  Meta:
-        model = Answer
-        fields = ['answer1']        
+        model = Question
+        fields = ['question']        
