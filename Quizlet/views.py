@@ -4,6 +4,7 @@ from .models import Quiz, Question
 from django.http import Http404
 from .forms import QuizForm, QuestionForm
 from django.urls import reverse
+from django.core.paginator import Paginator
 
 def index(request):
     if request.method == "POST":
@@ -15,8 +16,11 @@ def index(request):
         forma = QuizForm()
     
     context = Quiz.objects.all()  
+    paginator = Paginator(context, 3)
+    page_number = request.GET.get('page', 1)
+    posts = paginator.page(page_number)
      
-    return render(request, "Quizlet/index.html", {"latest_question_list": context,'forma': forma })
+    return render(request, "Quizlet/index.html", {"latest_question_list": posts,'forma': forma })
 
 
 

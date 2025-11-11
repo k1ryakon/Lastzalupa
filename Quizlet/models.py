@@ -27,9 +27,26 @@ class Question(models.Model):
         WRONG = 'WR', "wrong"
         
     quiz = models.ForeignKey(Quiz, verbose_name="Вопросики", on_delete=models.CASCADE)
-    question = models.CharField(max_length=100)
+    question = models.CharField(max_length=100, unique=True)
     status = models.CharField(max_length=2, choices=Status.choices, default=Status.WRONG)
     
     def __str__(self):
         return f"{self.question}"
     
+    
+class Comment(models.Model):
+    quize = models.ForeignKey(Quiz, on_delete=models.CASCADE, related_name='comments')
+    name = models.CharField(max_length=20)
+    body = models.TextField(max_length=100)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    active = models.BooleanField(default=True)
+    
+    class Meta:
+        ordering = ['created']
+        indexes = [
+            models.Index(fields=['created']),
+        ]
+
+    def __str__(self):
+        return f'Comment by {self.name} on {self.post}'

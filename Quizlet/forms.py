@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Quiz, Question
+from .models import Quiz, Question, Comment
 
 class QuizForm(ModelForm):
     class Meta:
@@ -9,4 +9,9 @@ class QuizForm(ModelForm):
 class QuestionForm(ModelForm):
     class  Meta:
         model = Question
-        fields = ['question']        
+        fields = ['question', 'status']        
+        
+class CommentForm(ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['name', 'email', 'body']        
