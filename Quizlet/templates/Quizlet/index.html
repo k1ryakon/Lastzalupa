@@ -14,4 +14,9 @@
     </table>
     <input type="submit" value="Submit">
 </form>
+
+<div id="content">
+    {% block content %}
+    {% endblock %}
+</div>
 {% include 'Quizlet/paginator.html' with page=latest_question_list %}

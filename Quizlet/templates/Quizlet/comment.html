@@ -1,0 +1,11 @@
+
+
+Add a comment
+
+
+{% if comment %}
+    <h2>Your comment has been added.</h2>
+{% else %}
+    {% include "Qizlet/comment_form.html" %}
+{% endif %}
+<p><a href="{{ qizi.get_absolute_url }}">Вернуться к квизу</a></p>
