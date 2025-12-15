@@ -17,7 +17,7 @@ def index(request):
     else:
         forma = QuizForm()
     
-    context = Quiz.objects.all()  
+    context = Quiz.objects.all().order_by('-id')  
     paginator = Paginator(context, 3)
     page_number = request.GET.get('page', 1)
     posts = paginator.page(page_number)

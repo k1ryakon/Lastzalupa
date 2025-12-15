@@ -41,7 +41,11 @@ INSTALLED_APPS = [
     'Quizlet',
     'django.contrib.sites',
     'django.contrib.sitemaps',
+    'accounts.apps.AccountsConfig',
 ]
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = "/"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -58,7 +62,7 @@ ROOT_URLCONF = 'Quiz.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -124,3 +128,14 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+# Конфигурация сервера электронной почты
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'anastasiablare@gmail.com'
+EMAIL_HOST_PASSWORD = 'xxxxxxxxxxxxxxxx'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+SERVER_EMAIL = EMAIL_HOST_USER
